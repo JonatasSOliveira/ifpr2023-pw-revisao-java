@@ -1,5 +1,5 @@
 import entidades.Pessoa;
-import interfaces.DialogUtils;
+import ui.DialogUtils;
 
 
 public class Main {
