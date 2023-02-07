@@ -1,12 +1,18 @@
-import entidades.Pessoa;
 import ui.DialogUtils;
+
+import javax.swing.*;
+import java.io.IOException;
 
 
 public class Main {
     public static void main(String[] args) {
-        Pessoa pessoa = new Pessoa(DialogUtils.solicitarNumeroInteiro("Informe a idade da Pessoa"));
-        String descricaoFaixaEtaria = "A pessoa é da seguinte faixa etária: " + pessoa.getFaixaEtaria().getDescricao();
-        DialogUtils.exibirInformacao(descricaoFaixaEtaria);
+        try {
+            String[] lista = DialogUtils.solicitarListaStrings("Informe a lista de valores:");
+        } catch (IOException e) {
+            DialogUtils.exibirMensagemAtencao(e.getMessage());
+        } catch (Exception e) {
+            DialogUtils.exibirMensagemAtencao("Erro inesperado!");
+        }
     }
 
 }
