@@ -1,5 +1,7 @@
 package ui;
 
+import utils.ListUtils;
+
 import javax.swing.*;
 import java.io.IOException;
 
@@ -21,5 +23,9 @@ public class DialogUtils {
     public static void exibirMensagemAtencao(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem,
                 "Atenção!", JOptionPane.WARNING_MESSAGE);
+    }
+
+    public static void exibirMensagem(String mensagem) {
+        JOptionPane.showMessageDialog(null, mensagem);
     }
 }
