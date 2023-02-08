@@ -20,6 +20,21 @@ public class DialogUtils {
         return listaNaoTratada.split(",");
     }
 
+    public static Integer[] solicitarListaInteiros(String mensagem) throws IOException, NumberFormatException {
+        String[] listaStrings = DialogUtils.solicitarListaStrings(mensagem);
+        Integer[] listaInteiros = new Integer[][listaStrings.length];
+
+        for (int i = 0; i < listaStrings.length; i++) {
+            try {
+                listaInteiros[i] = Integer.parseInt(listaStrings[i].trim());
+            }  catch (NumberFormatException e) {
+                throw new NumberFormatException("Infomardo lista com valores não númericos inteiros");
+            }
+        }
+
+        return listaInteiros;
+    }
+
     public static void exibirMensagemAtencao(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem,
                 "Atenção!", JOptionPane.WARNING_MESSAGE);
