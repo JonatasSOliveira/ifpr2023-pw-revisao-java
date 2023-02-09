@@ -1,7 +1,5 @@
 package ui;
 
-import utils.ListUtils;
-
 import javax.swing.*;
 import java.io.IOException;
 
@@ -22,7 +20,7 @@ public class DialogUtils {
 
     public static Integer[] solicitarListaInteiros(String mensagem) throws IOException, NumberFormatException {
         String[] listaStrings = DialogUtils.solicitarListaStrings(mensagem);
-        Integer[] listaInteiros = new Integer[][listaStrings.length];
+        Integer[] listaInteiros = new Integer[listaStrings.length];
 
         for (int i = 0; i < listaStrings.length; i++) {
             try {
