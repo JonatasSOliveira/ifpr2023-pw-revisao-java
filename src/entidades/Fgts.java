@@ -1,5 +1,7 @@
 package entidades;
 
+import utils.NumbericUtils;
+
 public class Fgts {
     private final Double PORCENTAGEM_DESCONTO_FGTS = 11.0;
     private final Double valor;
@@ -12,7 +14,8 @@ public class Fgts {
         return this.valor;
     }
 
-    public Double getPorcentagemDesconto() {
-        return PORCENTAGEM_DESCONTO_FGTS;
+    public String getPorcentagemDescontoFormatado() {
+        return NumbericUtils.formatarDoubleParaDecimal(PORCENTAGEM_DESCONTO_FGTS) + "%";
     }
+
 }

@@ -1,5 +1,7 @@
 package entidades;
 
+import utils.NumbericUtils;
+
 public class Sindicato {
     private final Double PORCENTAGEM_DESCONTO_SINDICATO = 3.0;
 
@@ -12,10 +14,8 @@ public class Sindicato {
     public Double getValorDesconto() {
         return this.valorDesconto;
     }
-
-    public Double getPorcentagemDesconto() {
-        return this.PORCENTAGEM_DESCONTO_SINDICATO;
+    
+    public String getPorcentagemDescontoFormatado() {
+        return NumbericUtils.formatarDoubleParaDecimal(PORCENTAGEM_DESCONTO_SINDICATO) + "%";
     }
-
-
 }

@@ -1,6 +1,7 @@
 package entidades;
 
 import enums.DescontoImpostoRenda;
+import utils.NumbericUtils;
 
 public class ImpostoRenda {
     private final Double valor;
@@ -21,6 +22,10 @@ public class ImpostoRenda {
 
     public Double getPorcentagemDesconto() {
         return this.descontoImpostoRenda.getPorcentagemDesconto();
+    }
+
+    public String getPorcentagemDescontoFormatado() {
+        return NumbericUtils.formatarDoubleParaDecimal(this.getPorcentagemDesconto()) + "%";
     }
 
 }

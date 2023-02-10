@@ -1,5 +1,8 @@
 package entidades;
 
+import utils.DinheiroUtils;
+import utils.NumbericUtils;
+
 public class FolhaPagamento {
 
     private final Double valorHoraTrabalho;
@@ -23,13 +26,35 @@ public class FolhaPagamento {
         this.salarioLiquido = this.salarioBruto - this.totalValorDesconto;
     }
 
-    public String getRelatorio() {
-        return "Salário Bruto(" + this.valorHoraTrabalho + " * "  + this.qtdHorasTrabalhadas + "):..." + this.salarioBruto
-                + "\n(-) IR (" + this.impostoRenda.getPorcentagemDesconto() + "%):....................." + this.impostoRenda.getValor()
-                + "\n(-) Sindicato (" + this.sindicato.getPorcentagemDesconto() + "%):............" + this.sindicato.getValorDesconto()
-                + "\nFGTS (" + fgts.getPorcentagemDesconto() + "%):...................." + this.fgts.getValor()
-                + "\nTotal Desconto:................." + this.totalValorDesconto
-                + "\nSalário Liquido:................." + this.salarioLiquido;
+    private String gerarLinhaRelatorio(String label, int qtdePontos, Double valor) {
+        String valorFormatado = DinheiroUtils.formatarParaReal(valor);
+
+        return label + ": " + ".".repeat(qtdePontos) + valorFormatado;
+    }
+
+    public String gerarRelatorio() {
+        String valorHoraTrabalhoFormatado = DinheiroUtils.formatarParaReal(this.valorHoraTrabalho);
+        String qtdeHorasTrabalhadasFormatada = NumbericUtils.formatarDoubleParaDecimal(this.qtdHorasTrabalhadas);
+
+        return this.gerarLinhaRelatorio(
+                "Salário Bruto(" + valorHoraTrabalhoFormatado + " * "  + qtdeHorasTrabalhadasFormatada + ")",
+                3,
+                this.salarioBruto
+            ) + this.gerarLinhaRelatorio(
+                "\n(-) IR (" + this.impostoRenda.getPorcentagemDescontoFormatado() + ")",
+                21,
+                this.impostoRenda.getValor()
+            ) + this.gerarLinhaRelatorio(
+                "\n(-) Sindicato (" + this.sindicato.getPorcentagemDescontoFormatado() + ")",
+                12,
+                this.sindicato.getValorDesconto()
+            ) + this.gerarLinhaRelatorio(
+                "\nFgts (" + this.fgts.getPorcentagemDescontoFormatado() + ")",
+                21,
+                this.fgts.getValor()
+            ) + this.gerarLinhaRelatorio("\nTotal Desconto ", 18, this.totalValorDesconto)
+            + this.gerarLinhaRelatorio("\nSalário Liquido", 19, this.salarioLiquido);
+
     }
 
 }
