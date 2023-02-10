@@ -3,13 +3,14 @@ package ui;
 import javax.swing.*;
 
 public class DialogUtils {
-    public static Double solicitarValorDouble(String mensagem) {
-        Double valor = null;
+
+    public static Integer solicitarValorInteger(String mensagem) {
+        Integer valor = null;
         boolean ok = false;
 
         while (!ok) {
             try {
-                valor = Double.parseDouble(JOptionPane.showInputDialog(mensagem).replaceAll(",", "."));
+                valor = Integer.parseInt(JOptionPane.showInputDialog(mensagem));
                 ok = true;
             } catch (NumberFormatException e) {
                 DialogUtils.exibirMensagemAtencao("Valor inválido");
@@ -18,6 +19,21 @@ public class DialogUtils {
 
         return valor;
     }
+
+    public static int solicitarOpcao(String mensagem, String[] opcoes) {
+
+        return JOptionPane.showOptionDialog(
+                null,
+                mensagem,
+                "Escolha a opção",
+                JOptionPane.DEFAULT_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                opcoes,
+                opcoes[0]
+        );
+    }
+
 
     public static void exibirMensagemAtencao(String mensagem) {
         JOptionPane.showMessageDialog(null, mensagem,
