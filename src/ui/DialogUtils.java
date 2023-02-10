@@ -1,36 +1,22 @@
 package ui;
 
 import javax.swing.*;
-import java.io.IOException;
 
 public class DialogUtils {
-    public static String[] solicitarListaStrings(String mensagem) throws IOException {
-        String listaNaoTratada = JOptionPane.showInputDialog(mensagem);
+    public static Double solicitarValorDouble(String mensagem) {
+        Double valor = null;
+        boolean ok = false;
 
-        if (listaNaoTratada.isEmpty()) {
-            throw new IOException("Nenhum valor informado!");
-        }
-
-        if (!listaNaoTratada.contains(",")) {
-            throw new IOException("Valor informado incorretamente");
-        }
-
-        return listaNaoTratada.split(",");
-    }
-
-    public static Integer[] solicitarListaInteiros(String mensagem) throws IOException, NumberFormatException {
-        String[] listaStrings = DialogUtils.solicitarListaStrings(mensagem);
-        Integer[] listaInteiros = new Integer[listaStrings.length];
-
-        for (int i = 0; i < listaStrings.length; i++) {
+        while (!ok) {
             try {
-                listaInteiros[i] = Integer.parseInt(listaStrings[i].trim());
-            }  catch (NumberFormatException e) {
-                throw new NumberFormatException("Infomardo lista com valores não númericos inteiros");
+                valor = Double.parseDouble(JOptionPane.showInputDialog(mensagem).replaceAll(",", "."));
+                ok = true;
+            } catch (NumberFormatException e) {
+                DialogUtils.exibirMensagemAtencao("Valor inválido");
             }
         }
 
-        return listaInteiros;
+        return valor;
     }
 
     public static void exibirMensagemAtencao(String mensagem) {
