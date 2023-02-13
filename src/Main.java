@@ -1,18 +1,36 @@
-import entidades.Pessoa;
-import enums.SexoPessoa;
+import entidades.Cliente;
+import entidades.Endereco;
 import ui.DialogUtils;
 
 public class Main {
     public static void main(String[] args) {
-        String[] opcoesDescricaoSexo = {SexoPessoa.MASCULINO.getDescricao(), SexoPessoa.FEMININO.getDescricao()};
-        SexoPessoa[] sexoPessoas = {SexoPessoa.MASCULINO, SexoPessoa.FEMININO};
+        boolean sistemaFinalizou = false;
 
-        SexoPessoa sexo = sexoPessoas[DialogUtils.solicitarOpcao("Escolha o sexo", opcoesDescricaoSexo)];
-        Integer pesoa = DialogUtils.solicitarValorInteger("Digite o peso (em gramas)");
-        Integer altura = DialogUtils.solicitarValorInteger("Digite a altura (em centimetros)");
-        Pessoa pessoa = new Pessoa(sexo, pesoa, altura);
+        while (!sistemaFinalizou) {
+            String nomeCliente = DialogUtils.solicitarValorString("Digite o nome do cliente: ");
+            Cliente cliente = new Cliente(nomeCliente);
 
-        DialogUtils.exibirMensagem("Condição de imc: " + pessoa.getCondicaoImc().getDescricao());
+            boolean adicionandoEndereco = true;
+            while (adicionandoEndereco) {
+                String logradouro = DialogUtils.solicitarValorString("Digite o logradouro do endereço: ");
+                String numero = DialogUtils.solicitarValorString("Digite o numero do endereço: ");
+                String bairro = DialogUtils.solicitarValorString("Digite o bairro do endereço: ");
+                String cidade = DialogUtils.solicitarValorString("Digite a cidade do endereço: ");
+                String estado = DialogUtils.solicitarValorString("Digite o estado do endereço: ");
+
+                cliente.adicionarEndereco(new Endereco(logradouro, numero, bairro, cidade, estado));
+
+                if (DialogUtils.solicitarValorString("Deseja adicionar outro endereço? (S/N): ").equals("N")) {
+                    adicionandoEndereco = false;
+                }
+            }
+
+            System.out.println(cliente);
+
+            if (DialogUtils.solicitarValorString("Deseja finalizar o sistema? (S/N): ").equals("S")) {
+                sistemaFinalizou = true;
+            }
+        }
     }
 
 }
